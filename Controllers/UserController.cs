@@ -28,7 +28,7 @@ namespace UniBet.Controllers
       if (user == null)
       {
         return NotFound();
-      } 
+      }
       return Ok(user);
     }
 
