@@ -15,7 +15,7 @@ namespace Unibet.Context
         protected override OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-            .hasKey(u => u.Id)
+            .hasKey(u => u.Id);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace UniBet.Entities
   public void Deposit(float amount)
   {
     if (amount <= 0) throw new ArgumentException("Amount must be positive");
-    Balance += amount;
+    this.Balance += amount;
   }
   }
 }
