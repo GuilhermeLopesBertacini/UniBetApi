@@ -1,5 +1,5 @@
 using UniBet.Entities;
-using Microsoft.EntityFrameWorkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 
 namespace Unibet.Context
@@ -12,10 +12,10 @@ namespace Unibet.Context
         {
         }
 
-        protected override OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-            .hasKey(u => u.Id);
+            .HasKey(u => u.Id);
         }
     }
 }
