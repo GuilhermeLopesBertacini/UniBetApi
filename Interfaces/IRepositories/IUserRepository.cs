@@ -6,7 +6,7 @@ namespace UniBet.Interfaces.IRepositories
   {
     public List<User> GetUsers();
     public User GetUserById(Guid Id);
-    public User CreateUsers(User user);
+    public User CreateUser(User user);
     public void UpdateUser(User user);
     public void DeleteUser(Guid id);
   }

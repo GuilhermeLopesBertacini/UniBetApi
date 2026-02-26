@@ -28,7 +28,7 @@ namespace UniBet.Services
     
     public User CreateUser(User user)
     {
-      User createdUser = _repository.CreateUsers(user);
+      User createdUser = _repository.CreateUser(user);
       return createdUser;
     }
 
