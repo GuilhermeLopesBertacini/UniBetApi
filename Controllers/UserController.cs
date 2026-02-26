@@ -22,9 +22,9 @@ namespace UniBet.Controllers
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(Guid id)
+    public IActionResult GetUserById(Guid id)
     {
-      User user = this._service.GetById(id);
+      User user = this._service.GetUserById(id);
       if (user == null)
       {
         return NotFound();
@@ -36,7 +36,7 @@ namespace UniBet.Controllers
     public ActionResult<User> CreateUser(User user)
     {
       User createdUser = this._service.CreateUser(user);
-      return CreatedAtAction(nameof(GetById), new { id = createdUser.id }, createdUser);
+      return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
     }
 
     [HttpPut("{id}")]

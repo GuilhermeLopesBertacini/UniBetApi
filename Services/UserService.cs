@@ -15,29 +15,31 @@ namespace UniBet.Services
 
     public List<User> GetUsers()
     {
-      throw new NotImplementedException();
+      List<User> users = _repository.GetUsers();
+      return users;
     }
 
-    public User GetById(Guid id)
+    public User GetUserById(Guid id)
     {
-      User user = _repository.GetById(id); 
+      User user = _repository.GetUserById(id); 
       if (user == null) return null;
       return user;
     }
     
     public User CreateUser(User user)
     {
-      throw new NotImplementedException();
+      User createdUser = _repository.CreateUsers(user);
+      return createdUser;
     }
 
     public void UpdateUser(User user)
     {
-      throw new NotImplementedException();
+      _repository.UpdateUser(user);
     }
 
     public void DeleteUser(Guid Id)
     {
-      throw new NotImplementedException();
+      _repository.DeleteUser(Id);
     }
   }
 }
