@@ -2,7 +2,7 @@ using UniBet.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 
-namespace Unibet.Context
+namespace UniBet.Context
 {
     public class BaseContext: DbContext
     {
