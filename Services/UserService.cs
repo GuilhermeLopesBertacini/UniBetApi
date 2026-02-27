@@ -2,6 +2,7 @@ using UniBet.Entities;
 using UniBet.Interfaces.IServices;
 using UniBet.Interfaces.IRepositories;
 using Microsoft.AspNetCore.Http.HttpResults;
+using UniBet.Exceptions;
 
 namespace UniBet.Services
 {
@@ -22,7 +23,7 @@ namespace UniBet.Services
     public User GetUserById(Guid id)
     {
       User user = _repository.GetUserById(id); 
-      if (user == null) return null;
+      if (user == null) throw new NotFoundException($"User with Id {id} not found.");
       return user;
     }
     

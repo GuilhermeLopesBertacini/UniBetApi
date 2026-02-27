@@ -5,6 +5,7 @@ using UniBet.Interfaces.IRepositories;
 using UniBet.Interfaces.IServices;
 using UniBet.Repositories;
 using UniBet.Services;
+using UniBet.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,5 +39,6 @@ if (app.Urls.Any(url => url.StartsWith("https")))
     app.UseHttpsRedirection();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 app.Run();

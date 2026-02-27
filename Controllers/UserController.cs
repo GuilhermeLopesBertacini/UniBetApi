@@ -25,10 +25,6 @@ namespace UniBet.Controllers
     public IActionResult GetUserById(Guid id)
     {
       User user = this._service.GetUserById(id);
-      if (user == null)
-      {
-        return NotFound();
-      }
       return Ok(user);
     }
 
