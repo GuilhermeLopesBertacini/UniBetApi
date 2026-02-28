@@ -8,6 +8,6 @@ namespace UniBet.Interfaces.IRepositories
     public User GetUserById(Guid Id);
     public User CreateUser(User user);
     public void UpdateUser(User user);
-    public void DeleteUser(Guid id);
+    public void DeleteUser(User user);
   }
 }

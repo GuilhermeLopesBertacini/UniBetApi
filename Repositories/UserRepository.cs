@@ -2,46 +2,43 @@ using UniBet.Entities;
 using UniBet.Interfaces.IRepositories;
 using UniBet.Context;
 using Microsoft.EntityFrameworkCore;
+using UniBet.Exceptions;
 
 namespace UniBet.Repositories
 {
   public class UserRepository : IUserRepository
   {
-    private readonly BaseContext _context;
+    private readonly BaseContext _db;
     public UserRepository(BaseContext context) {
-      _context = context;
+      this._db = context;
     }
     public List<User> GetUsers()
     {
-      return _context.Users.ToList();
+      return this._db.Users.ToList();
     }
 
-    public User GetUserById(Guid Id)
+    public User GetUserById(Guid id)
     {
-      return _context.Users.FirstOrDefault(u => u.Id == Id);
+      return this._db.Users.FirstOrDefault(u => u.Id == id);
     }
 
     public User CreateUser(User user)
     {
-      User createdUser = _context.Users.Add(user).Entity;
-      _context.SaveChanges();
+      User createdUser = this._db.Users.Add(user).Entity;
+      this._db.SaveChanges();
       return createdUser;
     }
 
     public void UpdateUser(User user)
     {
-      _context.Users.Update(user);
-      _context.SaveChanges();
+      this._db.Users.Update(user);
+      this._db.SaveChanges();
     }
 
-    public void DeleteUser(Guid Id)
+    public void DeleteUser(User user)
     {
-      User user = _context.Users.Find(Id);
-      if (user != null)
-      {
-        _context.Users.Remove(user);
-        _context.SaveChanges();
-      }
+      this._db.Users.Remove(user);
+      this._db.SaveChanges();
     }
   }
 }
