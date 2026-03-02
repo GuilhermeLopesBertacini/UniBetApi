@@ -1,7 +1,7 @@
+using UniBet.Core.Commands;
 using UniBet.Entities;
 using UniBet.Interfaces.IServices;
 using UniBet.Interfaces.IRepositories;
-using Microsoft.AspNetCore.Http.HttpResults;
 using UniBet.Exceptions;
 
 namespace UniBet.Services
@@ -33,11 +33,12 @@ namespace UniBet.Services
       return createdUser;
     }
 
-    public void UpdateUser(User user)
+    public void UpdateUser(UpdateUserCommand command)
     {
-      User existingUser = this._repository.GetUserById(user.Id);
-      if (existingUser == null) throw new NotFoundException($"User with Id {user.Id} not found.");
-      this._repository.UpdateUser(user);
+      User existingUser = this._repository.GetUserById(command.Id);
+      if (existingUser == null) throw new NotFoundException($"User with Id {command.Id} not found.");
+      existingUser.UpdateUser(command.FirstName, command.LastName, command.Email);
+      this._repository.UpdateUser(existingUser);
     }
 
     public void DeleteUser(Guid id)

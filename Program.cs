@@ -1,16 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
 using UniBet.Context;
 using UniBet.Interfaces.IRepositories;
 using UniBet.Interfaces.IServices;
 using UniBet.Repositories;
 using UniBet.Services;
+using FluentValidation.AspNetCore;
 using UniBet.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

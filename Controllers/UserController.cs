@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using UniBet.Core.Commands;
+using UniBet.Dtos;
 using UniBet.Entities;
 using UniBet.Interfaces.IServices;
+using UniBet.Mappers;
 
 namespace UniBet.Controllers
 {
@@ -15,30 +18,35 @@ namespace UniBet.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<User>> GetUsers()
+    public ActionResult<IEnumerable<UserResponseDto>> GetUsers()
     {
       List<User> users = this._service.GetUsers();
-      return Ok(users);
+      var response = users.Select(u => u.ToResponseDto());
+      return Ok(response);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetUserById(Guid id)
+    public ActionResult<UserResponseDto> GetUserById(Guid id)
     {
       User user = this._service.GetUserById(id);
-      return Ok(user);
+      var response = user.ToResponseDto();
+      return Ok(response);
     }
 
     [HttpPost]
-    public ActionResult<User> CreateUser(User user)
+    public ActionResult<UserResponseDto> CreateUser(UserCreateRequest request)
     {
+      User user = request.ToEntity();
       User createdUser = this._service.CreateUser(user);
-      return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+      var response = createdUser.ToResponseDto();
+      return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, response);
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(Guid id, User user)
+    public IActionResult UpdateUser(Guid id, UserUpdateRequest request)
     {
-      this._service.UpdateUser(user);
+      var command = request.ToCommand(id);
+      this._service.UpdateUser(command);
       return NoContent();
     }
 
