@@ -1,26 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
-using UniBet.Core.Commands;
-using UniBet.Dtos;
-using UniBet.Entities;
-using UniBet.Interfaces.IServices;
-using UniBet.Mappers;
+using UniBet.Api.DTOs;
+using UniBet.Api.Mappers;
+using UniBet.Core.Application.Ports;
+using UniBet.Core.Domain.Entities;
 
-namespace UniBet.Controllers
+namespace UniBet.Api.Controllers
 {
   [ApiController]
   [Route("[controller]")]
   public class UserController : ControllerBase
   {
     private readonly IUserService _service;
+
     public UserController(IUserService service)
     {
-      this._service = service;
+      _service = service;
     }
 
     [HttpGet]
     public ActionResult<IEnumerable<UserResponseDto>> GetUsers()
     {
-      List<User> users = this._service.GetUsers();
+      List<User> users = _service.GetAll();
       var response = users.Select(u => u.ToResponseDto());
       return Ok(response);
     }
@@ -28,7 +28,7 @@ namespace UniBet.Controllers
     [HttpGet("{id}")]
     public ActionResult<UserResponseDto> GetUserById(Guid id)
     {
-      User user = this._service.GetUserById(id);
+      User user = _service.GetById(id);
       var response = user.ToResponseDto();
       return Ok(response);
     }
@@ -37,7 +37,7 @@ namespace UniBet.Controllers
     public ActionResult<UserResponseDto> CreateUser(UserCreateRequest request)
     {
       User user = request.ToEntity();
-      User createdUser = this._service.CreateUser(user);
+      User createdUser = _service.Create(user);
       var response = createdUser.ToResponseDto();
       return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, response);
     }
@@ -46,14 +46,14 @@ namespace UniBet.Controllers
     public IActionResult UpdateUser(Guid id, UserUpdateRequest request)
     {
       var command = request.ToCommand(id);
-      this._service.UpdateUser(command);
+      _service.Update(command);
       return NoContent();
     }
 
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(Guid id)
     {
-      this._service.DeleteUser(id);
+      _service.Delete(id);
       return NoContent();
     }
   }

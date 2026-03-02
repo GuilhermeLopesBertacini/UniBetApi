@@ -1,4 +1,4 @@
-namespace UniBet.Core.Commands
+namespace UniBet.Core.Application.Commands
 {
   public sealed record UpdateUserCommand(
     Guid Id,

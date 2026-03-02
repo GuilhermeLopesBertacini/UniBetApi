@@ -1,8 +1,8 @@
 using System.Net;
 using System.Text.Json;
-using UniBet.Exceptions;
+using UniBet.Core.Domain.Exceptions;
 
-namespace UniBet.Middlewares
+namespace UniBet.Api.Middlewares
 {
   public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
   {
@@ -27,6 +27,7 @@ namespace UniBet.Middlewares
         BadRequestException e => (HttpStatusCode.BadRequest, e.Message),
         _                     => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
       };
+
       context.Response.ContentType = "application/json";
       context.Response.StatusCode = (int)statusCode;
 
@@ -35,6 +36,7 @@ namespace UniBet.Middlewares
         statusCode = (int)statusCode,
         message
       });
+
       await context.Response.WriteAsync(body);
     }
   }

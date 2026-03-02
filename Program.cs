@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using UniBet.Context;
-using UniBet.Interfaces.IRepositories;
-using UniBet.Interfaces.IServices;
-using UniBet.Repositories;
-using UniBet.Services;
 using FluentValidation.AspNetCore;
-using UniBet.Middlewares;
+using UniBet.Api.Middlewares;
+using UniBet.Core.Application.Ports;
+using UniBet.Core.Application.Services;
+using UniBet.Infrastructure.Persistence;
+using UniBet.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
-builder.Services.AddDbContext<BaseContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         mysqlConnection,
         ServerVersion.AutoDetect(mysqlConnection)
