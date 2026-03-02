@@ -22,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ServerVersion.AutoDetect(mysqlConnection)
     ));
 
+// Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();

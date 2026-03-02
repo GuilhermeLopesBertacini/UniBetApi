@@ -21,7 +21,7 @@ namespace UniBet.Core.Application.Services
 
     public User GetById(Guid id)
     {
-      User user = _repository.GetById(id);
+      User ?user = _repository.GetById(id);
       if (user == null) throw new NotFoundException($"User with Id {id} not found.");
       return user;
     }
@@ -33,7 +33,7 @@ namespace UniBet.Core.Application.Services
 
     public void Update(UpdateUserCommand command)
     {
-      User existingUser = _repository.GetById(command.Id);
+      User ?existingUser = _repository.GetById(command.Id);
       if (existingUser == null) throw new NotFoundException($"User with Id {command.Id} not found.");
       existingUser.Update(command.FirstName, command.LastName, command.Email);
       _repository.Update(existingUser);
@@ -41,7 +41,7 @@ namespace UniBet.Core.Application.Services
 
     public void Delete(Guid id)
     {
-      User user = _repository.GetById(id);
+      User ?user = _repository.GetById(id);
       if (user == null) throw new NotFoundException($"User with Id {id} not found.");
       _repository.Delete(user);
     }
