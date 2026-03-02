@@ -9,7 +9,6 @@ namespace UniBet.Entities
       public string Password { get; private set; } = string.Empty;
       public DateTime BirthDate { get; private set; }
       public string Cpf { get; private set; } = string.Empty;
-      public string Rg { get; private set; } = string.Empty;
       public float Balance { get; private set; }
   public string UpdatePassword(string newPassword)
   {

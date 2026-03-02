@@ -28,9 +28,6 @@ namespace UniBet.Context
                 entity.HasIndex(u => u.Cpf)
                 .IsUnique();
 
-                entity.HasIndex(u => u.Rg)
-                .IsUnique();
-
                 entity.Property(u => u.Balance)
                 .HasColumnType("decimal(9,2)");
             });
