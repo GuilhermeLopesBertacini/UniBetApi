@@ -3,12 +3,8 @@ using UniBet.Core.Domain.Entities;
 
 namespace UniBet.Core.Application.Ports
 {
-  public interface IUserService
+  public interface IUserService : IBaseService<User>
   {
-    List<User> GetAll();
-    User GetById(Guid id);
-    User Create(User user);
-    void Update(UpdateUserCommand command);
-    void Delete(Guid id);
+    // Add User-specific service methods here
   }
 }
