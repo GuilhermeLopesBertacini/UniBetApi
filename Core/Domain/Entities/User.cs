@@ -60,8 +60,7 @@ namespace UniBet.Core.Domain.Entities
 
     private void SetEmail(string email)
     {
-      if (string.IsNullOrEmpty(email)) throw new Exception("E-mail can not be empty");
-      if (!Validator.EmailRegex.IsMatch(email)) throw new Exception("Email must be valid");
+      Validator.ValidateEmail(email);
       this.Email = email.Trim().ToLowerInvariant();
     }
 
@@ -82,6 +81,12 @@ namespace UniBet.Core.Domain.Entities
 
   public class Validator
   {
-    public static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+    private static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+    public static void ValidateEmail(string email)
+    {
+      email = email.Trim().ToLowerInvariant();
+      if (string.IsNullOrEmpty(email)) throw new Exception("E-mail can not be empty");
+      if (!EmailRegex.IsMatch(email)) throw new Exception("Email must be valid");
+    }
   }
 }
