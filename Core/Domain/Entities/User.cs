@@ -35,32 +35,37 @@ namespace UniBet.Core.Domain.Entities
       this.Cpf = cpf;
       this.Balance = 10;
     }
-    public void UpdateName(string firstName, string lastName)
+    public void ChangeName(string firstName, string lastName)
     {
       this.SetFirstName(firstName);
       this.SetLastName(lastName);
     }
 
-    public void SetFirstName(string firstName)
+    public void ChangeEmail(string email)
+    {
+      this.SetEmail(email);
+    }
+
+    private void SetFirstName(string firstName)
     {
       if (string.IsNullOrWhiteSpace(firstName)) throw new Exception("First Name can not be empty");
       this.FirstName = firstName;
     }
 
-    public void SetLastName(string lastName)
+    private void SetLastName(string lastName)
     {
       if (string.IsNullOrWhiteSpace(lastName)) throw new Exception("Last Name can not be empty");
       this.LastName = lastName;
     }
 
-  public void SetEmail(string email)
+    private void SetEmail(string email)
     {
       if (string.IsNullOrEmpty(email)) throw new Exception("E-mail can not be empty");
       if (!Validator.EmailRegex.IsMatch(email)) throw new Exception("Email must be valid");
       this.Email = email.Trim().ToLowerInvariant();
     }
 
-  public void IncreaseBalace(float amount)
+  public void IncreaseBalance(float amount)
     {
       if (amount < 0) throw new Exception("Amount must be positve");
       this.Balance = this.Balance + amount;
