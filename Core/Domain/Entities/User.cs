@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace UniBet.Core.Domain.Entities
 {
   public class User
@@ -25,28 +27,50 @@ namespace UniBet.Core.Domain.Entities
     )
     {
       Id = Guid.NewGuid();
-      FirstName = firstName;
-      LastName = lastName;
-      Email = email;
-      Password = password;
-      BirthDate = birthdate;
-      Cpf = cpf;
-      Balance = 0;
+      this.SetFirstName(firstName);
+      this.SetLastName(lastName);
+      this.SetEmail(email);
+      this.Password = password;
+      this.BirthDate = birthdate;
+      this.Cpf = cpf;
+      this.Balance = 10;
     }
-
-    public void Update(string? firstName, string? lastName, string? email)
+    public void SetFirstName(string firstName)
     {
-      if (firstName is not null) FirstName = firstName;
-      if (lastName is not null) LastName = lastName;
-      if (email is not null) Email = email;
+      if (string.IsNullOrWhiteSpace(firstName)) throw new Exception("First Name can not be empty");
+      this.FirstName = FirstName;
     }
 
-    public void UpdatePassword(string newPassword) => Password = newPassword;
-
-    public void Deposit(float amount)
+    public void SetLastName(string lastName)
     {
-      if (amount <= 0) throw new ArgumentException("Amount must be positive");
-      Balance += amount;
+      if (string.IsNullOrWhiteSpace(lastName)) throw new Exception("Last Name can not be empty");
+      this.FirstName = FirstName;
     }
+
+  public void SetEmail(string email)
+    {
+      if (string.IsNullOrEmpty(email)) throw new Exception("E-mail can not be empty");
+      if (!Validator.EmailRegex.IsMatch(email)) throw new Exception("Email must be valid");
+      this.Email = email.Trim().ToLowerInvariant();
+    }
+
+  public void IncreaseBalace(float amount)
+    {
+      if (amount < 0) throw new Exception("Amount must be positve");
+      this.Balance = this.Balance + amount;
+    }
+
+  public void DecreaseBalance(float amount)
+    {
+      if (amount < 0) throw new Exception("Amount must be positive");
+      float newBalance = this.Balance - amount;
+      if (newBalance < 0) throw new Exception("Not enought balance to decrease from");
+      this.Balance = newBalance;
+    }
+  }
+
+  public class Validator
+  {
+    public static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
   }
 }
