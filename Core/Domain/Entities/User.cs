@@ -35,16 +35,22 @@ namespace UniBet.Core.Domain.Entities
       this.Cpf = cpf;
       this.Balance = 10;
     }
+    public void UpdateName(string firstName, string lastName)
+    {
+      this.SetFirstName(firstName);
+      this.SetLastName(lastName);
+    }
+
     public void SetFirstName(string firstName)
     {
       if (string.IsNullOrWhiteSpace(firstName)) throw new Exception("First Name can not be empty");
-      this.FirstName = FirstName;
+      this.FirstName = firstName;
     }
 
     public void SetLastName(string lastName)
     {
       if (string.IsNullOrWhiteSpace(lastName)) throw new Exception("Last Name can not be empty");
-      this.FirstName = FirstName;
+      this.LastName = lastName;
     }
 
   public void SetEmail(string email)
