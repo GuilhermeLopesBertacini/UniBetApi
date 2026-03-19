@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
-using UniBet.Api.Middlewares;
-using UniBet.Core.Application.Ports;
-using UniBet.Core.Application.Services;
-using UniBet.Infrastructure.Persistence;
-using UniBet.Infrastructure.Persistence.Repositories;
+using UniBet.Presentation.Middlewares;
+using UniBet.Application.Interfaces;
+using UniBet.Application.Services;
+using UniBet.Infrastructure;
+using UniBet.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
