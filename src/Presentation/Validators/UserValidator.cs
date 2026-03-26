@@ -37,9 +37,9 @@ namespace UniBet.Presentation.Validators
     }
   }
 
-  public class UserUpdateRequestValidator : AbstractValidator<UserUpdateRequest>
+  public class ChangeProfileRequestValidator : AbstractValidator<ChangeProfileRequest>
   {
-    public UserUpdateRequestValidator()
+    public ChangeProfileRequestValidator()
     {
       RuleFor(u => u.FirstName)
         .MaximumLength(50)

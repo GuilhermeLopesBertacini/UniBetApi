@@ -1,5 +1,4 @@
 using UniBet.Presentation.DTOs;
-using UniBet.Application.Commands;
 using UniBet.Domain.Entities;
 
 namespace UniBet.Presentation.Mappers
@@ -25,16 +24,6 @@ namespace UniBet.Presentation.Mappers
         $"{entity.FirstName} {entity.LastName}",
         entity.Email,
         entity.Balance
-      );
-    }
-
-    public static UpdateUserCommand ToCommand(this UserUpdateRequest request, Guid id)
-    {
-      return new UpdateUserCommand(
-        id,
-        request.FirstName,
-        request.LastName,
-        request.Email
       );
     }
   }

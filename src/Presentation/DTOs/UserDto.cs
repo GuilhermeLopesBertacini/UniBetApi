@@ -16,7 +16,7 @@ namespace UniBet.Presentation.DTOs
     string Cpf
   );
 
-  public sealed record UserUpdateRequest(
+  public sealed record ChangeProfileRequest(
     string? FirstName,
     string? LastName,
     string? Email

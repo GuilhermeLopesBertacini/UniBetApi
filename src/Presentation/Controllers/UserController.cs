@@ -43,10 +43,9 @@ namespace UniBet.Presentation.Controllers
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(Guid id, UserUpdateRequest request)
+    public IActionResult ChangeProfile(Guid id, ChangeProfileRequest request)
     {
-      var command = request.ToCommand(id);
-      _service.Update(command);
+      _service.ChangeProfile(id, request);
       return NoContent();
     }
 

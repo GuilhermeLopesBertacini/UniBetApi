@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 namespace UniBet.Domain.Entities
 {
   public class User
@@ -35,17 +33,6 @@ namespace UniBet.Domain.Entities
       this.Cpf = cpf;
       this.Balance = 10;
     }
-    public void ChangeName(string firstName, string lastName)
-    {
-      this.SetFirstName(firstName);
-      this.SetLastName(lastName);
-    }
-
-    public void ChangeEmail(string email)
-    {
-      this.SetEmail(email);
-    }
-
     private void SetFirstName(string firstName)
     {
       if (string.IsNullOrWhiteSpace(firstName)) throw new Exception("First Name can not be empty");
@@ -61,8 +48,7 @@ namespace UniBet.Domain.Entities
     private void SetEmail(string email)
     {
       email = email.Trim().ToLowerInvariant();
-      Validator.ValidateEmail(email);
-      this.Email = email.Trim().ToLowerInvariant();
+      this.Email = email;
     }
 
   public void IncreaseBalance(float amount)
@@ -78,22 +64,12 @@ namespace UniBet.Domain.Entities
       if (newBalance < 0) throw new Exception("Not enought balance to decrease from");
       this.Balance = newBalance;
     }
-
-    public void Update(string? firstName, string? lastName, string? email)
+  
+  public void ChangeProfile(string firstName, string lastName, string email)
     {
-      if (firstName is not null) this.SetFirstName(firstName);
-      if (lastName is not null) this.SetLastName(lastName);
-      if (email is not null) this.SetEmail(email);
-    }
-  }
-
-  public class Validator
-  {
-    private static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
-    public static void ValidateEmail(string email)
-    {
-      if (string.IsNullOrEmpty(email)) throw new Exception("E-mail can not be empty");
-      if (!EmailRegex.IsMatch(email)) throw new Exception("Email must be valid");
+      this.SetFirstName(firstName);
+      this.SetLastName(lastName);
+      this.SetEmail(email);
     }
   }
 }
